@@ -6,6 +6,8 @@ class window.Hand extends Backbone.Collection
   hit: ->
     if @.minScore() < 21
       @add(@deck.pop())
+    if @.minScore() > 21
+      @stand()
   ,
   stand: ->
     @trigger('end', @)
