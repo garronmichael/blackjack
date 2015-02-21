@@ -21,7 +21,7 @@ class window.Hand extends Backbone.Collection
   , 0
 
   minScore: -> @reduce (score, card) ->
-    score + if card.get 'revealed' then card.get 'value' else 0
+    score + card.get 'value'
   , 0
 
   maxScore: ->
@@ -33,7 +33,14 @@ class window.Hand extends Backbone.Collection
     # The scores are an array of potential scores.
     # Usually, that array contains one element. That is the only score.
     # when there is an ace, it offers you two scores - the original score, and score + 10.
-    [@minScore(), @minScore() + 10 * @hasAce()]
+    scores = []
+    scores.push(@shownScore())
+
+    if @shownScore() < (@shownScore() + 10 * @hasAce())
+      scores.push( @shownScore() + 10 * @hasAce() )
+    return scores
+
+    # [@shownMinScore(), @shownMinScore() + 10 * @hasAce()]
 
 
 
