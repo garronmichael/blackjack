@@ -5,6 +5,7 @@ class window.App extends Backbone.Model
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
+    console.log(@get('dealerHand').maxScore())
     @get('playerHand').on('end', =>
       @get('dealerHand').forEach (model) ->
         if model.get('revealed') is false then model.set('revealed', true)
