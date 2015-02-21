@@ -8,6 +8,16 @@ class window.App extends Backbone.Model
     if @get('playerHand').scores()[0] is 21 or @get('playerHand').scores()[1] is 21
       @get('playerHand').stand()
     @get('playerHand').on('end', =>
+      console.log('end')
       @get('dealerHand').forEach (model) ->
         if model.get('revealed') is false then model.flip()
+
+      if @get('playerHand').scores()[0] / 21 > @get('dealerHand').scores()[0] / 21
+        if @get('playerHand').scores()[0] <= 21
+          console.log 'You won'
+      else if @get('playerHand').scores[1] / 21 > @get('dealerHand').scores()[1] / 21
+        if @get('playerHand').scores()[1] <= 21
+          console.log 'You won'
+      else
+        console.log 'You lost'
       )
