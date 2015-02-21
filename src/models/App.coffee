@@ -5,4 +5,7 @@ class window.App extends Backbone.Model
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
-    @get('playerHand').on 'end', -> console.log('pizza').bind(@)
+    @get('playerHand').on('end', =>
+      @get('dealerHand').forEach (model) ->
+        if model.get('revealed') is false then model.set('revealed', true)
+      )
